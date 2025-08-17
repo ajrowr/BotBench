@@ -27,7 +27,12 @@ def _get_bot_class():
     else:
         raise Exception("No bot selected")
 
-def _get_convo_args(bot):
+def _get_convo_args(bot, scope):
+    try:
+        return bot.derive_field_args_from_scope(scope)
+    except Exception as exc:
+        pass
+    
     if hasattr(bot, 'test_argv'):
         return bot.test_argv
     else:
@@ -43,7 +48,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Initialize the Anthropic bot for this connection
         self.bot = _get_bot_class()(async_mode=True)
         try:
-            self.conversation = LoggedConversation.revive(self.bot, self.conversation_id, settings.BOTBENCH_CHATLOGS_DIR, _get_convo_args(self.bot), stream=True, async_mode=True, cache_user_prompt=True)
+            self.conversation = LoggedConversation.revive(self.bot, self.conversation_id, settings.BOTBENCH_CHATLOGS_DIR, _get_convo_args(self.bot, self.scope), stream=True, async_mode=True, cache_user_prompt=True)
         except UnknownConversationException:
             self.conversation = None
         
@@ -97,7 +102,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Initialize conversation if this is the first message
             if self.conversation is None:
                 self.conversation = LoggedConversation(self.bot, stream=True, async_mode=True, logs_dir=settings.BOTBENCH_CHATLOGS_DIR, conversation_id=self.conversation_id, cache_user_prompt=True)
-                self.conversation.prestart(_get_convo_args(self.bot))
+                self.conversation.prestart(_get_convo_args(self.bot, self.scope))
             
             # Send "typing" indicator directly to this connection
             await self.send(text_data=json.dumps({
