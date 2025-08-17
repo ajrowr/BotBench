@@ -85,7 +85,7 @@ If you've used the above setup (and obtained and configured an Anthropic API key
 
 ## Using custom bots
 
-You can pretty much set your custom bots up wherever you like as long as it's on the PYTHONPATH. Let's say you decide to add a `bots.py` to the top level of your Django project, like so:
+You can pretty much set your custom bots up wherever you like as long as it's on the `PYTHONPATH`. Let's say you decide to add a `bots.py` to the top level of your Django project, like so:
 
 ```python
 # bots.py
