@@ -45,6 +45,7 @@ Then, in `urls.py`:
 
 ```python
 # ... existing imports
+from django.urls import path, include
 from django_botbench import views as bb_views
 
 ...
@@ -57,6 +58,15 @@ urlpatterns = [
 ```
 
 The `embed_example` view gives an example of embedding an `iframe`-based chat box in a webpage. You can adapt this for pages on an existing site or just use it as-is for a quick way to get interacting with your bots.
+
+Next, edit `asgi.py`:
+
+```python
+# ... add the following lines to the end of asgi.py
+from django_botbench.asgi import configure_asgi
+
+application = configure_asgi(application)
+```
 
 Finally, you'll need a Redis (as alluded to in the `CHANNEL_LAYERS` config above). Easiest is to spin one up with Docker:
 
