@@ -4,9 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-botbench"
-version = "0.1.4"
+version = "0.1.5"
 requires-python = ">=3.10"
 dependencies = [
+    "channels-redis>=4.3.0",
     "channels[daphne]>=4.3.1",
     "roboop>=0.6.2",
 ]

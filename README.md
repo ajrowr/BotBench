@@ -7,7 +7,7 @@ BotBench offers handy boilerplate to plug RoboOp bots into the web via a Django 
 
 ## Setting up
 
-To set up a development environment with Botbench, start by installing into your Django project's virtualenv (or that of a fresh Django project if you just want to use the frontend without adding it to an existing project):
+To set up a development environment with Botbench, start by installing into your Django project's virtualenv (or that of a fresh Django project created with `django-admin startproject <projectname>` if you just want to use the frontend without adding it to an existing project):
 
 ```sh
 pip install django-botbench
