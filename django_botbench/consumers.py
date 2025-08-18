@@ -48,7 +48,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Initialize the Anthropic bot for this connection
         self.bot = _get_bot_class()(async_mode=True)
         try:
-            self.conversation = LoggedConversation.revive(self.bot, self.conversation_id, settings.BOTBENCH_CHATLOGS_DIR, _get_convo_args(self.bot, self.scope), stream=True, async_mode=True, cache_user_prompt=True)
+            self.conversation = LoggedConversation.revive(self.bot, self.conversation_id, settings.BOTBENCH_CHATLOGS_DIR, stream=True, async_mode=True, cache_user_prompt=True)
         except UnknownConversationException:
             self.conversation = None
         
